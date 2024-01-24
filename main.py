@@ -2,8 +2,8 @@ from transverseproject.built import *
 
 pygame.init()
 
-screen = pygame.display.set_mode((800, 700))
-pygame.display.set_caption('Demo')
+screen = pygame.display.set_mode((800, 600))
+pygame.display.set_caption('JO GAME')
 
 
 if __name__ == "__main__":
