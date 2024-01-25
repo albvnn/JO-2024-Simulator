@@ -15,7 +15,7 @@ class Game:
         self.hole_img = pygame.image.load(os.path.join('spirit', 'hole.png'))
         self.clock = pygame.time.Clock()
         self.ball = golfgame_class.Ball(self, (300, 200), 0)
-        self.arrow = golfgame_class.Arrow(self, self.ball.pos)
+        self.arrow = golfgame_class.Arrow(self, self.ball.rect.center)
 
     def run(self):
         while True:
@@ -26,10 +26,10 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            if pygame.mouse.get_pressed()[0] == True:
+            if (pygame.mouse.get_pressed()[0] == True) and (self.ball.check_mouse_in_circledrag(pygame.mouse.get_pos())):
                 self.screen.blit(self.arrow.arrowimg, self.arrow.rect)
-                print(pygame.mouse.get_pressed()[0])
+                print(pygame.mouse.get_pos())
             pygame.display.update()
-            self.clock.tick(80)
+            self.clock.tick(60)
 
 Game().run()
