@@ -1,4 +1,5 @@
-from transverseproject.built import *
+import pygame
+from built import *
 
 pygame.init()
 
