@@ -19,7 +19,7 @@ class GolfGame:
         self.barrier = golfgame_class.Barrier(self, (0, 0))
         self.river = golfgame_class.Water(self, (0,0))
         pygame.mixer.init()
-        pygame.mixer.music.load(os.path.join('music', 'REQUIEM.mp3'))
+        #pygame.mixer.music.load(os.path.join('music', 'REQUIEM.mp3'))
 
     def display_text(self, text, pos):
         img = pygame.font.SysFont("Lato", 30).render(text, True, "WHITE")
