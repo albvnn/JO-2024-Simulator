@@ -48,11 +48,11 @@ class Menu:
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if (mouse_X >= 325 and mouse_X <= 500) and (mouse_Y >= 200 and mouse_Y <= 275) :
+                    if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 200 and mouse_Y <= 275) :
                         import golfgame
-                    if (mouse_X >= 325 and mouse_X <= 500) and (mouse_Y >= 300 and mouse_Y <= 375) :
+                    if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 300 and mouse_Y <= 375) :
                         pass
-                    if (mouse_X >= 325 and mouse_X <= 500) and (mouse_Y >= 400 and mouse_Y <= 475) :
+                    if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 400 and mouse_Y <= 475) :
                         pass  
                 elif event.type == pygame.MOUSEBUTTONUP:
                     pass
@@ -60,19 +60,19 @@ class Menu:
 
 
 
-            if (mouse_X >= 325 and mouse_X <= 500) and (mouse_Y >= 200 and mouse_Y <= 275) :
+            if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 200 and mouse_Y <= 275) :
                 self.screen.blit(self.game1_ON,(325, 200))
             else :
                 self.screen.blit(self.game1_OFF,(325, 200))
 
 
-            if (mouse_X >= 325 and mouse_X <= 500) and (mouse_Y >= 300 and mouse_Y <= 375) :
+            if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 300 and mouse_Y <= 375) :
                 self.screen.blit(self.game2_ON,(325, 300))
             else :
                 self.screen.blit(self.game2_OFF,(325, 300))
 
 
-            if (mouse_X >= 325 and mouse_X <= 500) and (mouse_Y >= 400 and mouse_Y <= 475) :
+            if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 400 and mouse_Y <= 475) :
                 self.screen.blit(self.game3_ON,(325, 400))
             else :
                 self.screen.blit(self.game3_OFF,(325, 400))
