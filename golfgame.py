@@ -5,6 +5,38 @@ import sys
 #import pymunk
 #import pymunk.pygame_util
 import math
+
+map = ["-------H--------------------------------", 
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"---------W-WWWWWWWWWWW------------------",
+"---------W------------------------------",
+"---------W------------------------------",
+"---------W------------------------------",
+"---------W------------B-----------------",
+"----------------------------------------",
+"---------------------------W------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"---------------RRRRRR-------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",
+"----------------------------------------",]
+
 class GolfGame:
     def __init__(self):
         pygame.init()
@@ -13,19 +45,66 @@ class GolfGame:
         self.screen = pygame.display.set_mode((800, 600))
         self.bg_img = pygame.image.load(os.path.join('spirit', 'golfBackground.png'))
         self.clock = pygame.time.Clock()
-        self.ball = golfgame_class.Ball(self, (300, 200), 0)
+        self.ball = golfgame_class.Ball(self, (0, 0), 0)
         self.arrow = golfgame_class.Arrow(self, self.ball.rect.center)
-        self.hole = golfgame_class.Hole(self, (500, 50))
+        self.hole = golfgame_class.Hole(self, (100, 0))
         self.barrier = golfgame_class.Barrier(self)
         self.river = golfgame_class.Water(self)
         pygame.mixer.init()
-        pygame.mixer.music.load(os.path.join('music', 'REQUIEM.mp3'))
+        #pygame.mixer.music.load(os.path.join('music', 'REQUIEM.mp3'))
 
     def display_text(self, text, pos):
         img = pygame.font.SysFont("Lato", 30).render(text, True, "WHITE")
         self.screen.blit(img, (pos[0], pos[1]))
 
+    def map_maker(self, map : list):
+        wall_pos = []
+        river_pos = []
+        for i in range(0, len(map)):
+            map[i] = [*map[i]]
+            for j in range(0, len(map[i])):
+                if map[i][j] == "B":
+                    self.ball.rect.center = (((j+1)*20)-10, ((i+1)*20)-10)
+                elif map[i][j] == "H":
+                    self.hole.rect.center = (((j+1)*20)-10, ((i+1)*20)-10)
+                elif map[i][j] == "W":
+                    if map[i][j+1] == "W":
+                        k = 0
+                        while(map[i][j+k] == "W"):
+                            map[i][j+k] == "-"
+                            k += 1
+                        wall_pos.append([(j*20, i*20), ((j+k)*20, i*20)])
+                    elif map[i+1][j] == "W":
+                        k = 0
+                        while(map[i+k][j] == "W"):
+                            map[i][j+k] == "-"
+                            k += 1
+                        wall_pos.append([(j*20, i*20), (j*20, (i+k)*20)])
+                    else:
+                        wall_pos.append([(j*20, i*20), (j*20, i*20)])
+                elif map[i][j] == "R":
+                    if map[i][j+1] == "R":
+                        k = 0
+                        while(map[i][j+k] == "R"):
+                            map[i][j+k] == "-"
+                            k += 1
+                        river_pos.append([(j*20, i*20), ((j+k)*20, i*20)])
+                    elif map[i+1][j] == "R":
+                        k = 0
+                        while(map[i+k][j] == "R"):
+                            map[i][j+k] == "-"
+                            k += 1
+                        river_pos.append([(j*20, i*20), (j*20, (i+k)*20)])
+                    else:
+                        river_pos.append([(j*20, i*20), (j*20, i*20)])
+
+        self.barrier.wall_maker(wall_pos)
+        self.river.river_maker(river_pos)
+                        
+
+
     def run(self):
+        self.map_maker(map)
         running = True
         taking_shoot = False
         shoot_in_gestion = False
@@ -35,13 +114,16 @@ class GolfGame:
         distance = 0
         power = 1
         #pygame.mixer.music.play()
+        #self.barrier.wall_maker([[(40, 60), (180, 60)]])
+        #self.river.river_maker([[(560, 40), (780, 40)]])
+
         while running:
             self.screen.blit(self.bg_img, (0, 0))
             if not self.hole.check_ball_in_hole(self.ball.rect.center):
                 self.screen.blit(self.ball.ballimg, self.ball.rect)
             self.screen.blit(self.hole.holeimg, self.hole.rect)
-            #self.barrier.wall_maker((40, 60), (180, 60))
-            #self.river.river_maker((560, 40), (780, 40))
+            self.barrier.display_walls()
+            self.river.display_rivers()
 
 
             if taking_shoot:
@@ -110,3 +192,4 @@ class GolfGame:
 GolfGame().run()
 pygame.quit()
 sys.exit()
+

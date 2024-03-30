@@ -112,6 +112,13 @@ class Barrier(pygame.sprite.Sprite):
             if rectwall not in self.rectlist:
                 self.rectlist.append((rectwall, "vertical", (pos_start, pos_end)))
             return True
+        elif pos_start[1] == pos_end[1] and pos_start[0] == pos_end[0] and abs(pos_start[1] - pos_end[1]) % 20 == 0:
+            rectwall.center = (pos_start[0], pos_start[1])
+            rectwall.height = 20
+            rectwall.width = 20
+            if rectwall not in self.rectlist:
+                self.rectlist.append((rectwall, "block", (pos_start, pos_end)))
+            return True
         else:
             return False
 
@@ -126,6 +133,7 @@ class Barrier(pygame.sprite.Sprite):
     def allhalfbricks(self, pos_halfbricks: list):
         for halfbrick in pos_halfbricks:
             self.halfbricks((halfbrick[0][0], halfbrick[0][1]), halfbrick[1])
+
     def wall_maker(self, pos_walls: list):
         for wall in pos_walls:
             self.wall(wall[0], wall[1])
@@ -138,6 +146,8 @@ class Barrier(pygame.sprite.Sprite):
             elif i[1] == "vertical":
                 for k in range(i[2][0][1], i[2][1][1], 20):
                     self.game.screen.blit(pygame.transform.rotate(self.bricksimg, 90), (i[2][0][0], k))
+            elif i[1] == "block":
+                self.game.screen.blit(self.bricksimg, (i[2][0][0], i[2][0][1]))
         for k in self.rectlisthalf:
             if k[1] == 0:
                 self.game.screen.blit(self.halfbricksimg, (k[0][0], k[0][1]))
