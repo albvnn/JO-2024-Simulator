@@ -16,10 +16,10 @@ class GolfGame:
         self.ball = golfgame_class.Ball(self, (300, 200), 0)
         self.arrow = golfgame_class.Arrow(self, self.ball.rect.center)
         self.hole = golfgame_class.Hole(self, (500, 50))
-        self.barrier = golfgame_class.Barrier(self, (0, 0))
-        self.river = golfgame_class.Water(self, (0,0))
+        self.barrier = golfgame_class.Barrier(self)
+        self.river = golfgame_class.Water(self)
         pygame.mixer.init()
-        #pygame.mixer.music.load(os.path.join('music', 'REQUIEM.mp3'))
+        pygame.mixer.music.load(os.path.join('music', 'REQUIEM.mp3'))
 
     def display_text(self, text, pos):
         img = pygame.font.SysFont("Lato", 30).render(text, True, "WHITE")
@@ -40,9 +40,8 @@ class GolfGame:
             if not self.hole.check_ball_in_hole(self.ball.rect.center):
                 self.screen.blit(self.ball.ballimg, self.ball.rect)
             self.screen.blit(self.hole.holeimg, self.hole.rect)
-            self.barrier.wall_maker((40, 60), (180, 60))
-            self.barrier.wall_maker((180, 20), (180, 280))
-            self.river.river_maker((560, 40), (780, 40))
+            #self.barrier.wall_maker((40, 60), (180, 60))
+            #self.river.river_maker((560, 40), (780, 40))
 
 
             if taking_shoot:
