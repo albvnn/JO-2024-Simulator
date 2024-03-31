@@ -2,7 +2,7 @@
 
 Bienvenue dans le projet de JO 2024 Simulator !
 
-Ce projet a été développé dans le cadre du cursus universitaire en Licence 1 à l'EFREI Paris. Il s'agit d'un projet d'étudiants dans le cadre d'un projet appellé transverse, qui ont combiné l'informatique et la physique pour créer une expérience ludique et immersive.
+Ce projet a été développé dans le cadre du cursus universitaire en Licence 1 à l'EFREI Paris. Il s'agit d'un projet d'étudiants dans le cadre d'un projet appellé transverse, qui consiste a combiné l'informatique et la physique pour créer une expérience ludique et immersive.
 
 ## Description du Projet
 
@@ -50,6 +50,14 @@ Ce projet est le fruit du travail d'étudiants de première année à l'EFREI. N
 - Paul Hernandez
 - Fares Mimita
 - Wu Julien
+
+## Fichiers et Dossiers
+
+- **spirit** : Dossier contenant toutes les images nécessaires au bon fonctionnement du programme.
+- **main.py** : Fichier principale pour lancer le programme.
+- **built.py** : Fichier reunissant les 3 épreuves olympiques dans un menu.
+- **golfgame_class.py** : Fichier contenant les classes du jeu de golf.
+- **golfgame.py** : Fichier servant a jouer à l'epreuve de golf uniquement.
 
 ## Licence
 
