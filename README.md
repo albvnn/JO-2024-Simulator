@@ -11,22 +11,23 @@ Le jeu vidéo sur les Jeux Olympiques 2024 est une simulation sportive qui vous 
 ## Comment Lancer le Jeu
 
 ### Prérequis
-- Système d'exploitation : Windows 10 / macOS / Linux
+- Système d'exploitation : Windows 10-11 / macOS / Linux
 - Mémoire RAM : 4 Go recommandés
 - Carte graphique compatible DirectX 11 ou OpenGL 4.3
+- Python 4+
 
 ### Étapes pour Lancer le Jeu
 
 1. Clonez ou téléchargez le dépôt du projet sur votre machine locale :
 
    ```
-   git clone https://github.com/votrenomutilisateur/projet-jo-2024.git
+   git clone https://github.com/Akes-exe/JO-2024-Simulator.git
    ```
 
 2. Naviguez vers le répertoire du projet :
 
    ```
-   cd projet-jo-2024
+   cd JO-2024-Simulator
    ```
 
 3. Lancez le jeu en exécutant le fichier principal :
