@@ -30,13 +30,19 @@ Le jeu vidéo sur les Jeux Olympiques 2024 est une simulation sportive qui vous 
    cd JO-2024-Simulator
    ```
 
-3. Lancez le jeu en exécutant le fichier principal :
+3. Installez les modules nécessaires au bon fonctionnement du projet :
+   
+   ```
+   pip install -r requirements.txt
+   ```
+   
+4. Lancez le jeu en exécutant le fichier principal :
 
    ```
    python main.py
    ```
 
-4. Amusez-vous et profitez de l'expérience olympique virtuelle !
+5. Amusez-vous et profitez de l'expérience olympique virtuelle !
 
 ## Contributions et Remarques
 
