@@ -6,29 +6,31 @@ import sys
 #import pymunk.pygame_util
 import math
 
+os.chdir(os.path.join(os.getcwd(), "GameGolf"))
+
 map = ["-------H--------------------------------", 
 "----------------------------------------",
 "----------------------------------------",
 "----------------------------------------",
 "----------------------------------------",
-"---------W-WWWWWWWWWWW------------------",
+"----------------------WWWWWWWWWWWWWWWWW-",
 "---------W------------------------------",
 "---------W------------------------------",
 "---------W------------------------------",
 "---------W------------B-----------------",
 "----------------------------------------",
-"---------------------------W------------",
 "----------------------------------------",
 "----------------------------------------",
 "----------------------------------------",
 "----------------------------------------",
 "----------------------------------------",
 "----------------------------------------",
-"---------------RRRRRR-------------------",
 "----------------------------------------",
-"----------------------------------------",
-"----------------------------------------",
-"----------------------------------------",
+"-------------R-RRRRRRRRRRR--------------",
+"-------------R--------------------------",
+"-------------R--------------------------",
+"-------------R--------------------------",
+"-------------R--------------------------",
 "----------------------------------------",
 "----------------------------------------",
 "----------------------------------------",
@@ -36,6 +38,13 @@ map = ["-------H--------------------------------",
 "----------------------------------------",
 "----------------------------------------",
 "----------------------------------------",]
+
+def display_matrix(matp):
+    for i in range(len(matp)):
+        for j in range(len(matp)):
+            print(matp[i][j], end="")
+        print("\n")
+
 
 class GolfGame:
     def __init__(self):
@@ -62,7 +71,8 @@ class GolfGame:
         river_pos = []
         for i in range(0, len(map)):
             map[i] = [*map[i]]
-            for j in range(0, len(map[i])):
+        for i in range(0, len(map)):
+            for j in range(0, 40):
                 if map[i][j] == "B":
                     self.ball.rect.center = (((j+1)*20)-10, ((i+1)*20)-10)
                 elif map[i][j] == "H":
@@ -71,32 +81,36 @@ class GolfGame:
                     if map[i][j+1] == "W":
                         k = 0
                         while(map[i][j+k] == "W"):
-                            map[i][j+k] == "-"
+                            map[i][j+k] = "-"
                             k += 1
                         wall_pos.append([(j*20, i*20), ((j+k)*20, i*20)])
                     elif map[i+1][j] == "W":
                         k = 0
                         while(map[i+k][j] == "W"):
-                            map[i][j+k] == "-"
+                            map[i+k][j] = "-"
                             k += 1
-                        wall_pos.append([(j*20, i*20), (j*20, (i+k)*20)])
+                        wall_pos.append([(j*20, i*20), (j*20, (i+k+1)*20)])
                     else:
+                        map[i][j] = '-'
                         wall_pos.append([(j*20, i*20), (j*20, i*20)])
                 elif map[i][j] == "R":
                     if map[i][j+1] == "R":
                         k = 0
                         while(map[i][j+k] == "R"):
-                            map[i][j+k] == "-"
+                            map[i][j+k] = "-"
                             k += 1
                         river_pos.append([(j*20, i*20), ((j+k)*20, i*20)])
                     elif map[i+1][j] == "R":
                         k = 0
                         while(map[i+k][j] == "R"):
-                            map[i][j+k] == "-"
+                            map[i+k][j] = "-"
                             k += 1
                         river_pos.append([(j*20, i*20), (j*20, (i+k)*20)])
                     else:
+                        map[i][j] = '-'
                         river_pos.append([(j*20, i*20), (j*20, i*20)])
+                elif map[i][j] == "R":
+                    pass
 
         self.barrier.wall_maker(wall_pos)
         self.river.river_maker(river_pos)
@@ -108,14 +122,12 @@ class GolfGame:
         running = True
         taking_shoot = False
         shoot_in_gestion = False
-        termined_shoot = False
+        termined_shoot = True
         end_game = False
         shoot_angle = 0
-        distance = 0
+        velocity = -1
         power = 1
         #pygame.mixer.music.play()
-        #self.barrier.wall_maker([[(40, 60), (180, 60)]])
-        #self.river.river_maker([[(560, 40), (780, 40)]])
 
         while running:
             self.screen.blit(self.bg_img, (0, 0))
@@ -127,11 +139,10 @@ class GolfGame:
 
 
             if taking_shoot:
-                shoot_angle = -math.degrees(math.atan2(self.ball.dist_mous_ball(pygame.mouse.get_pos())[1], self.ball.dist_mous_ball(pygame.mouse.get_pos())[0]))
+                shoot_angle = -math.degrees(math.atan2(self.ball.dist_mous_ball(pygame.mouse.get_pos())[1], self.ball.dist_mous_ball(pygame.mouse.get_pos())[0])) % 360
                 self.arrow.rotate_angle(-shoot_angle, self.ball.dist_mous_ball(pygame.mouse.get_pos())[2])
                 self.arrow.draw()
                 power = self.ball.dist_mous_ball(pygame.mouse.get_pos())[2]/40
-                distance = 100
 
             for i in self.barrier.rectlist:
                 if pygame.Rect.colliderect(i[0], self.ball.rect):
@@ -140,24 +151,24 @@ class GolfGame:
             for k in self.river.rectlist:
                 if pygame.Rect.colliderect(k[0], self.ball.rect):
                     self.ball.rect.center = self.ball.last_pos
-                    distance = 0
+                    velocity = 0
+            
+            print(shoot_angle, velocity)
 
-            if shoot_in_gestion and distance != 0:
+            if shoot_in_gestion:
                 taking_shoot = False
                 termined_shoot = False
                 self.ball.update_pos(-shoot_angle, power)
-                distance -= 1
-                power /= 1.005
+                velocity -= 1/power
 
-            if distance == 0:
-                distance = 100
+            if velocity == 0:
                 self.ball.last_pos = self.ball.rect.center
                 shoot_in_gestion = False
                 termined_shoot = True
                 self.ball.counter_shot += 1
 
             if self.hole.check_ball_in_hole(self.ball.rect.center):
-                distance = -1
+                velocity = -1
                 self.display_text("VICTORY IN " + str(self.ball.counter_shot), (100, 100))
                 end_game = True
                 taking_shoot = False
@@ -166,7 +177,6 @@ class GolfGame:
             if self.ball.counter_shot >= 10:
                 self.display_text("GAME OVER", (100, 100))
                 end_game = True
-
 
             if not end_game and termined_shoot:
                 for event in pygame.event.get():
@@ -179,6 +189,7 @@ class GolfGame:
                     elif event.type == pygame.MOUSEBUTTONUP:
                         taking_shoot = False
                         shoot_in_gestion = True
+                        termined_shoot = False
             else:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:

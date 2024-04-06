@@ -13,24 +13,24 @@ class Menu:
     def __init__(self):
         pygame.display.set_caption('JO 2024 Simulator')
         self.screen = pygame.display.set_mode((800, 600))
-        bg_img_original = pygame.image.load(os.path.join('spirit', 'backgroundMenu.png'))
+        bg_img_original = pygame.image.load(os.path.join('spiritmenu', 'backgroundMenu.png'))
         self.bg_img = pygame.transform.scale(bg_img_original, (800, 600))
-        jo_img_original = pygame.image.load(os.path.join('spirit', 'anneauxJO.png'))
+        jo_img_original = pygame.image.load(os.path.join('spiritmenu', 'anneauxJO.png'))
         self.jo_img = pygame.transform.scale(jo_img_original, (250, 120))
 
-        game1_OFF = pygame.image.load(os.path.join('spirit', 'game1_OFF.png'))
+        game1_OFF = pygame.image.load(os.path.join('spiritmenu', 'game1_OFF.png'))
         self.game1_OFF = pygame.transform.scale(game1_OFF, (150, 75))
-        game1_ON = pygame.image.load(os.path.join('spirit', 'game1_ON.png'))
+        game1_ON = pygame.image.load(os.path.join('spiritmenu', 'game1_ON.png'))
         self.game1_ON = pygame.transform.scale(game1_ON, (150, 75))
 
-        game2_OFF = pygame.image.load(os.path.join('spirit', 'game2_OFF.png'))
+        game2_OFF = pygame.image.load(os.path.join('spiritmenu', 'game2_OFF.png'))
         self.game2_OFF = pygame.transform.scale(game2_OFF, (150, 75))
-        game2_ON = pygame.image.load(os.path.join('spirit', 'game2_ON.png'))
+        game2_ON = pygame.image.load(os.path.join('spiritmenu', 'game2_ON.png'))
         self.game2_ON = pygame.transform.scale(game2_ON, (150, 75))
 
-        game3_OFF = pygame.image.load(os.path.join('spirit', 'game3_OFF.png'))
+        game3_OFF = pygame.image.load(os.path.join('spiritmenu', 'game3_OFF.png'))
         self.game3_OFF = pygame.transform.scale(game3_OFF, (150, 75))
-        game3_ON = pygame.image.load(os.path.join('spirit', 'game3_ON.png'))
+        game3_ON = pygame.image.load(os.path.join('spiritmenu', 'game3_ON.png'))
         self.game3_ON = pygame.transform.scale(game3_ON, (150, 75))
 
         self.clock = pygame.time.Clock()
@@ -49,9 +49,13 @@ class Menu:
                     running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 200 and mouse_Y <= 275) :
-                        import golfgame
+                        os.system("python runnerV3/main.py")
+                        pygame.quit()
+                        sys.exit()
                     if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 300 and mouse_Y <= 375) :
-                        pass
+                        os.system("python GameGolf/golfgame.py")
+                        pygame.quit()
+                        sys.exit()
                     if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 400 and mouse_Y <= 475) :
                         pass  
                 elif event.type == pygame.MOUSEBUTTONUP:
