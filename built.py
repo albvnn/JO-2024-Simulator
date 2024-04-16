@@ -53,7 +53,7 @@ class Menu:
                         pygame.quit()
                         sys.exit()
                     if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 300 and mouse_Y <= 375) :
-                        os.system("python GameGolf/golfgame.py")
+                        os.system("python GameGolf/Game.py")
                         pygame.quit()
                         sys.exit()
                     if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 400 and mouse_Y <= 475) :

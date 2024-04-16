@@ -2,119 +2,10 @@ import os
 import pygame
 import math
 
-class Ball(pygame.sprite.Sprite):
-    def __init__(self, game, pos: list, velocity: int):
-        self.ballimg = pygame.image.load(os.path.join('spirit', 'golfBall.png'))
-        self.rect = self.ballimg.get_rect()
-        self.rect.center = pos
-        self.last_pos = pos
-        self.game = game
-        self.victory_condition = False
-        self.circledrag_area = math.pi * 100 ** 2
-        self.counter_shot = 0
-
-
-    def victory(self):
-        self.victory_condition = True
-        return self.victory_condition
-    
-
-    def update_pos(self,shoot_angle=0, power=1):
-        x = power * math.cos(math.radians(shoot_angle))
-        y = power * math.sin(math.radians(shoot_angle))
-        ball_pos = self.rect.center
-        self.rect.center = (ball_pos[0] - x, ball_pos[1] + y)
-
-
-    def dist_mous_ball(self, pos_mouse):
-        dist = [abs(self.rect.center[0] - pos_mouse[0]), abs(self.rect.center[1] - pos_mouse[1])]
-        dist_c = math.sqrt(dist[0] ** 2 + dist[1] ** 2)
-        if dist_c > 150:
-            dist_c = 150
-        return -(self.rect.center[0]-pos_mouse[0]), self.rect.center[1]-pos_mouse[1], dist_c
-    
-
-    def check_ball_stop(self, previous_ball_rect_center):
-        if previous_ball_rect_center == self.rect.center:
-            return True
-        else:
-            return False
-        
-
-    def recalculate_shootangle_wall(self, wall: list, shootangle):
-        if wall[1] == "horizontal":
-            if pygame.Rect.collidepoint(wall[0], (self.rect.center[0] + 15, self.rect.center[1])) or pygame.Rect.collidepoint(wall[0], (self.rect.center[0] - 15, self.rect.center[1])):
-                return 180-shootangle % 360
-            else:
-                return -shootangle % 360
-        elif wall[1] == "vertical":
-            if pygame.Rect.collidepoint(wall[0], (self.rect.center[0], self.rect.center[1] + 15)) or pygame.Rect.collidepoint(wall[0], (self.rect.center[0], self.rect.center[1] - 15)):
-                return -shootangle % 360
-            else:
-                return 180-shootangle % 360
-        elif wall[1] == "block":
-            if pygame.Rect.collidepoint(wall[0], (self.rect.center[0], self.rect.center[1] + 15)) or pygame.Rect.collidepoint(wall[0], (self.rect.center[0], self.rect.center[1] - 15)):
-                return -shootangle % 360
-            elif pygame.Rect.collidepoint(wall[0], (self.rect.center[0] + 15, self.rect.center[1])) or pygame.Rect.collidepoint(wall[0], (self.rect.center[0] - 15, self.rect.center[1])):
-                return 180-shootangle % 360
-            else:
-                return shootangle
-
-    def recalculate_shootangle_halfbricks(self, n: int, shootangle):
-        if n == 0:
-            return shootangle + 90
-        elif n == 1:
-            return shootangle - 90
-        elif n == 2:
-            return shootangle + 90
-        elif n == 3:
-            return shootangle - 90
-
-
-class Arrow(pygame.sprite.Sprite):
-    def __init__(self, game, pos: list):
-        self.original_img = pygame.image.load(os.path.join('spirit', 'golfArrow.png')).convert_alpha()
-        self.angle = 0
-        self.rect = self.original_img.get_rect()
-        self.rect.center = pos
-        self.game = game
-
-
-    def rotate_angle(self, new_angle, dist_mous_ball):
-        self.angle = new_angle
-        arrowimg1 = pygame.transform.smoothscale_by(self.original_img, (dist_mous_ball/100, 0.5))
-        self.arrowimg  = pygame.transform.rotate(arrowimg1, self.angle)
-
-
-    def draw(self):
-        self.rect.center = self.game.ball.rect.center
-        self.game.screen.blit(self.arrowimg,
-                         (self.rect.centerx - self.arrowimg.get_width() / 2,
-                          self.rect.centery - self.arrowimg.get_height() / 2))
-        
-
-class Hole(pygame.sprite.Sprite):
-    def __init__(self, game, pos):
-        self.holeimg = pygame.image.load(os.path.join('spirit', 'golfHole.png'))
-        self.rect = self.holeimg.get_rect()
-        self.rect.center = pos
-        self.game = game
-        self.victory_condition = False
-
-
-    def check_ball_in_hole(self, ball_pos):
-        dist = [abs(self.rect.center[0] - ball_pos[0]), abs(self.rect.center[1] - ball_pos[1])]
-        dist_c = math.sqrt(dist[0] ** 2 + dist[1] ** 2)
-        if dist_c < 10:
-            return True
-        return False
-    
-
-
 class Barrier(pygame.sprite.Sprite):
     def __init__(self, game):
-        self.bricksimg = pygame.image.load(os.path.join('spirit', 'bricksTile.png'))
-        self.halfbricksimg = pygame.image.load(os.path.join('spirit', 'bricksHalfTile.png'))
+        self.bricksimg = pygame.image.load(os.path.join('assets', 'bricksTile.png'))
+        self.halfbricksimg = pygame.image.load(os.path.join('assets', 'bricksHalfTile.png'))
         self.game = game
         self.rectlist = []
         self.rectlisthalf = []
@@ -183,10 +74,9 @@ class Barrier(pygame.sprite.Sprite):
                 self.game.screen.blit(pygame.transform.rotate(self.halfbricksimg, 90*k[1]), (k[0][0], k[0][1]))
 
 
-
 class Water:
     def __init__(self, game):
-        self.watersimg = pygame.image.load(os.path.join('spirit', 'waterTile.png'))
+        self.watersimg = pygame.image.load(os.path.join('assets', 'waterTile.png'))
         self.game = game
         self.rectlist = []
 
@@ -233,3 +123,53 @@ class Water:
                     self.game.screen.blit(self.watersimg, (i[2][0][0], k))
             elif i[1] == "block":
                 self.game.screen.blit(self.watersimg, (i[2][0][0], i[2][0][1]))
+
+class Palmer:
+    def __init__(self, game):
+        self.palmersimg = pygame.image.load(os.path.join('assets', 'obstacleTile.png'))
+        self.game = game
+        self.rectlist = []
+
+
+    def palmer(self, pos):
+        rectpalmer = pygame.Rect(0, 0, 20, 20)
+        rectpalmer.center = pos
+        if rectpalmer not in self.rectlist:
+            self.rectlist.append((rectpalmer, pos))
+            return True
+        else:
+            return False
+        
+    def palmer_maker(self, pos_palmers: list):
+      for palmer in pos_palmers:
+          self.palmer(palmer)
+
+    def display_palmers(self):
+        for i in self.rectlist:
+          self.game.screen.blit(self.palmersimg, i[1])
+
+class Sand:
+    def __init__(self, game):
+        self.sandimg = pygame.image.load(os.path.join('assets', 'sandTile.png'))
+        self.game = game
+        self.rectlist = []
+
+
+    def sand(self, pos):
+        rectsand = pygame.Rect(0, 0, 20, 20)
+        rectsand.center = pos
+        if rectsand not in self.rectlist:
+            self.rectlist.append((rectsand, pos))
+            return True
+        else:
+            return False
+        
+
+    def sand_maker(self, pos_sands: list):
+        for sand in pos_sands:
+          self.sand(sand)
+
+
+    def display_sand(self):
+        for i in self.rectlist:
+          self.game.screen.blit(self.sandimg, i[1])
