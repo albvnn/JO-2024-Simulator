@@ -43,9 +43,9 @@ class MainGame(Game):
         # Method to update game logic
         self.score += 1  # Incrementing score
         self.diffTime += utils.deltaTime()  # Updating time difference for difficulty progression
-        if self.diffTime >= 20:
+        if self.diffTime >= 10:
             self.diffTime = 0
-            utils.speed += 1  # Increasing game speed after certain time interval
+            utils.speed += 3  # Increasing game speed after certain time interval
 
         # Updating player and spawning obstacles
         self.player.update()

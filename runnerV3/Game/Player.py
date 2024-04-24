@@ -23,7 +23,7 @@ class Player(GameObject):
         self.currentSheet = 'run'
         self.img = self.sheets[self.currentSheet].getCurrentFrame()
         self.prevPos = None
-        self.speed = 5
+        self.speed = 10
         self.jumping = False
 
     def update(self):
