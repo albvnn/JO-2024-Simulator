@@ -8,6 +8,8 @@ Ce projet a été développé dans le cadre du cursus universitaire en Licence 1
 
 Le jeu vidéo sur les Jeux Olympiques 2024 est une simulation sportive qui vous permet de participer à différentes disciplines des Jeux Olympiques de Paris 2024. Vous pourrez incarner des athlètes  et compétir dans diverses épreuves pour remporter des médailles et atteindre la gloire olympique !
 
+Github Link : https://github.com/Akes-exe/JO-2024-Simulator
+
 ## Comment Lancer le Jeu
 
 ### Prérequis
@@ -59,15 +61,14 @@ Ce projet est le fruit du travail d'étudiants de première année à l'EFREI. N
 
 ## Fichiers et Dossiers
 
-- **spirit** : Dossier contenant toutes les images nécessaires au bon fonctionnement du programme.
+- **GameGolf** : Dossier contenant l'entierté du jeu de Golf avec les images, et les fichiers python.
+- **runnerV3** : Dossier contenant l'entierté du jeu de Saut de haies avec les images, et les fichiers python.
+- **FootGame** : Dossier contenant l'entierté du jeu de Foot avec les images, et les fichiers python.
+- **SpiritMenu** : Dossier contenant les images du menu.
 - **main.py** : Fichier principale pour lancer le programme.
 - **built.py** : Fichier reunissant les 3 épreuves olympiques dans un menu.
-- **golfgame_class.py** : Fichier contenant les classes du jeu de golf.
-- **golfgame.py** : Fichier servant a jouer à l'epreuve de golf uniquement.
-
-## Licence
-
-Ce projet est sous licence MIT. Consultez le fichier `LICENSE` pour plus de détails.
+- **requirements.txt** : Fichier contenant les modules a importer pour le bon fonctionnement du jeu.
+- **README.md** : Fichier README pour les informations relatives au jeu.
 
 ---
 
