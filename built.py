@@ -57,7 +57,9 @@ class Menu:
                         pygame.quit()
                         sys.exit()
                     if (mouse_X >= 325 and mouse_X <= 475) and (mouse_Y >= 400 and mouse_Y <= 475) :
-                        pass  
+                        os.system("python FootGame/foot.py")
+                        pygame.quit()
+                        sys.exit()
                 elif event.type == pygame.MOUSEBUTTONUP:
                     pass
 
