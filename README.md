@@ -8,6 +8,8 @@ Ce projet a été développé dans le cadre du cursus universitaire en Licence 1
 
 Le jeu vidéo sur les Jeux Olympiques 2024 est une simulation sportive qui vous permet de participer à différentes disciplines des Jeux Olympiques de Paris 2024. Vous pourrez incarner des athlètes  et compétir dans diverses épreuves pour remporter des médailles et atteindre la gloire olympique !
 
+Github Link : https://github.com/Akes-exe/JO-2024-Simulator
+
 ## Comment Lancer le Jeu
 
 ### Prérequis
