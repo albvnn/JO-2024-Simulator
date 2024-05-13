@@ -62,14 +62,11 @@ Ce projet est le fruit du travail d'étudiants de première année à l'EFREI. N
 - **GameGolf** : Dossier contenant l'entierté du jeu de Golf avec les images, et les fichiers python.
 - **runnerV3** : Dossier contenant l'entierté du jeu de Saut de haies avec les images, et les fichiers python.
 - **FootGame** : Dossier contenant l'entierté du jeu de Foot avec les images, et les fichiers python.
+- **SpiritMenu** : Dossier contenant les images du menu.
 - **main.py** : Fichier principale pour lancer le programme.
 - **built.py** : Fichier reunissant les 3 épreuves olympiques dans un menu.
 - **requirements.txt** : Fichier contenant les modules a importer pour le bon fonctionnement du jeu.
 - **README.md** : Fichier README pour les informations relatives au jeu.
-
-## Licence
-
-Ce projet est sous licence MIT. Consultez le fichier `LICENSE` pour plus de détails.
 
 ---
 
