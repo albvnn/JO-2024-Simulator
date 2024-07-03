@@ -52,7 +52,7 @@ Ce projet est le fruit du travail d'étudiants de première année à l'EFREI. N
 
 ## Auteurs
 
-- Alban Pascal - @Akes-exe
+- Alban P - @albvnn
 - Maxime Colin
 - Ylan Freyermuth
 - Paul Hernandez
